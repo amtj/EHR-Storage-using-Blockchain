@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Bootstrap Example</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+ </head> 	
+ <body>
+   <div class="container-fluid">
+     <div style="height:100px;background-color:black">
+       <h2 style="text-align:center;color:yellow"><b>Medical<span style="color:GREEN">EHR</span></b></h2>
+       <h3 style="text-align:right"><a href="#" onclick="signout()">SignOut</a>></h3>
+     </div>
+     <div style="text-align:center">
+       <h3 style="color:BLUE"><b>Medical Record</b></h3>
+     </div>
+     <div class="row">
+       <div class="col-sm-4">
+       </div>
+       <div class="col-sm-4"style="border-style: solid;border-width: 4px;border-color:#ddd;background-color:#eee">
+         <form class="form-horizontal" id="Medicalform">
+             <div class="form-group">
+             <label class="control-label col-sm-3" >Doctor Id to refer:</label>
+             <div class="col-sm-9">
+               <input type="text" class="form-control" id="doc" placeholder="Enter Doctor's Id"  value="">
+             </div>
+           </div>
+           <div class="form-group">
+             <div class="col-sm-offset-4 col-sm-10">
+               <button type="submit"  class="btn btn-primary" id="login">Submit</button>
+             </div>
+           </div>
+         </form>
+       </div>
+      <div class="col-sm-4">
+      </div>
+     </div>
+   </div>
+  <script>
+   $('#login').click(function(){
+     	var doctor=$('#doc').val()+"";
+ 		var class1= "org.acme.biznet.AllowAdoctorWrite";
+ 		var patient="org.acme.biznet.Patient#"+localStorage.patient_id;
+ 		var myObj = {     "$class" : class1, 
+ 						  "patient" : patient,
+ 						  "DoctorId" : doctor 
+ 						  };
+ 		var myJson = JSON.stringify(myObj);
+ 		//alert(myJson);
+ 		$.ajax({
+ 		    type : 'POST',
+ 		    url: 'http://localhost:3000/api/AllowAdoctorWrite',
+ 		    data : myJson,
+ 		    contentType: 'application/json',
+ 		    async: false,
+ 		    
+ 		    success: function (response){
+				alert("Access Given"); 
+				window.location="http://localhost:8080/MedicalEHR/AllowDoctor.html";
+ 		    },
+ 		    error: function (request, status, error) {
+ 				alert(error.message);
+ 		    }
+ 		});
+ 		//alert(excelDateString);
+ 		 return false;
+ 	});
+   
+   function signout(){
+		localStorage.clear();
+		window.location="http://localhost:8080/MedicalEHR/loginA.html";
+   	return false;
+	}
+   </script>
+ </body>
+</html>

@@ -1,0 +1,58 @@
+/**
+ * New query file
+ */
+query selectPatients {
+  description: "Select all Patients"
+  statement:
+      SELECT org.acme.biznet.Patient
+}
+
+query selectPatientById {
+  description: "Select the patient based on their id"
+  statement:
+      SELECT org.acme.biznet.Patient
+          WHERE (PatientId ==_$PatientId)
+}
+
+query selectDoctors {
+   description: "Select all doctors"
+  statement:
+      SELECT org.acme.biznet.Doctor
+} 
+
+query selectDoctorById {
+   description: "Select the doctor based on their id"
+  statement:
+      SELECT org.acme.biznet.Doctor
+          WHERE (DoctorId ==_$DoctorId)
+}
+
+query selectMedicalRecordByDoctorId {
+   description: "Select the medical records based on the DoctorId"
+  statement:
+      SELECT org.acme.biznet.Medical_Record
+          WHERE ((authorized CONTAINS _$DoctorId )OR (DoctorId ==_$DoctorId ))
+} 
+
+query selectMedicalRecordByPatientId {
+   description: "Select the medical records based on the PatientId"
+  statement:
+      SELECT org.acme.biznet.Medical_Record
+          WHERE ((PatientId ==_$PatientId ))
+} 
+
+
+query selectMedicalRecordByDoctorAndPatientId {
+   description: "Select the medical records based on the DoctorId and PatientId"
+  statement:
+      SELECT org.acme.biznet.Medical_Record
+          WHERE (((authorized CONTAINS _$DoctorId )OR (DoctorId ==_$DoctorId )) AND PatientId == _$PatientId)
+}
+
+
+query selectMedicalRecordByDoctorAndPatientIdAndTime {
+   description: "Select the medical records based on the DoctorId and PatientId sorted by time"
+  statement:
+      SELECT org.acme.biznet.Medical_Record
+          WHERE (DoctorId ==_$DoctorId AND PatientId == _$PatientId) ORDER BY encounter_time
+} 

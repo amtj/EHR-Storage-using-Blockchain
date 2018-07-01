@@ -1,0 +1,84 @@
+ // EHR model
+ 
+namespace org.acme.biznet
+
+asset Patient_profile  identified by profile_id{
+    o String profile_id
+    --> Patient Patient
+    o String firstName
+    o String lastName
+    o String EmailAddress
+    o Integer Dob
+    o Address address
+}
+asset Doctor_profile identified by profile_id{
+    o String profile_id
+     --> Doctor Doctor
+    o String firstName
+    o String lastName
+    o String EmailAddress
+    o Integer Dob
+    o String[] Qualifications
+    o String ImageURL
+    o Address address
+}   
+
+asset Patient identified by PatientId {
+    o String PatientId
+    o String[] authorized
+    o String gender
+    o String age
+}
+participant Doctor identified by DoctorId {
+    o String DoctorId
+}
+asset Medical_Record identified by record_id{
+	o String record_id
+    o String PatientId
+    o String DoctorId
+    o Integer version
+    o String[] authorized
+    o String description
+    o String prescription
+    o DateTime encounter_time
+    o String location
+}
+
+asset Encounter identified by encounter_id{
+    o String encounter_id
+    
+    //time
+    // sub-encounter
+    // location
+}
+transaction UpdateRecord {
+    o String record_id
+    o String PatientId
+    o String DoctorId
+    o Integer version
+    o String[] authorized
+    o String description
+    o String prescription
+    o DateTime encounter_time
+	o String location
+}
+//doctor1 will allow doctor2 to access the medical record
+transaction AllowOtherDoctorsRead{
+  	o String id
+    -->	Medical_Record record
+    -->	Doctor doctor2
+}
+transaction AllowAdoctorWrite{
+	--> Patient patient
+    o String DoctorId
+}
+
+concept Address {
+  o String number
+  o String street
+  o String city
+  o String country
+  o String PinCode
+}
+
+

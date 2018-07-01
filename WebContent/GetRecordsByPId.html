@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+<script src="jquery-3.3.1.js"></script>
+<meta http-equiv="Content-Type" content="text/html ; charset=ISO-8859-1" >
+<title>Insert title here</title>
+
+</head>
+<body>
+<div style="height:100px;background-color:black">
+       <h2 style="text-align:center;color:yellow"><b>Medical<span style="color:GREEN">EHR</span></b></h2>
+       <h3 style="text-align:right"><a href="#" onclick="signout()">SignOut</a>></h3>
+ </div>
+<br><br>
+<center>
+<form name="frm1" >
+
+<Input class="contact"  name="PatientId" id="test"
+								placeholder="Enter Patient ID" />
+							
+<input type="button" value="Apply" onclick="greeting()"/>							
+</form>
+</center>
+<script >
+
+	function signout(){
+		localStorage.clear();
+		window.location="http://localhost:8080/MedicalEHR/loginA.html";
+    	return false;
+	}
+    function greeting() {
+    	localStorage.pid=$('#test').val();
+    	window.location="http://localhost:8080/MedicalEHR/table.html";
+    	return false;
+    }
+    
+</script>
+</body>
+</html>

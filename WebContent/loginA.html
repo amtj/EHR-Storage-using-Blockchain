@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Bootstrap Example</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+ </head>
+ <body>
+   <div class="container-fluid">
+     <div style="height:100px;background-color:black">
+       <h2 style="text-align:center;color:yellow"><b>Medical<span style="color:GREEN">EHR</span></b></h2>
+     </div>
+     <div style="text-align:center">
+       <h3 style="color:BLUE"><b>LOGIN</b></h3>
+     </div>
+     <div class="row">
+       <div class="col-sm-4">
+       </div>
+       <div class="col-sm-4"style="border-style: solid;border-width: 4px;border-color:#ddd;background-color:#eee">
+         <form class="form-horizontal" id="loginform">
+           <div class="form-group">
+             <label class="control-label col-sm-3" for="User">USER: </label>
+             <select class="col-sm-4" style="margin-left: 15px" name="User" id="User">
+               <option value="">Choose User</option>
+               <option value="Patient">Patient</option>
+               <option value="Doctor">Doctor</option>
+               <option value="Researcher">Researcher</option>
+             </select>
+           </div>
+           <div class="form-group">
+             <label class="control-label col-sm-3" for="UserId">User Id:</label>
+             <div class="col-sm-9">
+               <input type="text" class="form-control" id="UserId" placeholder="Enter userID here" name="UserId" value="">
+             </div>
+           </div>
+           <div class="form-group">
+             <label class="control-label col-sm-3" for="Password">Password:</label>
+             <div class="col-sm-9">
+               <input type="Password" class="form-control" id="Password" placeholder="Enter password here" name="Password" value="">
+             </div>
+           </div>
+           <div class="form-group">
+             <div class="col-sm-offset-4 col-sm-10">
+               <button type="submit" onclick="submit()" class="btn btn-primary" id="login">Submit</button>
+             </div>
+           </div>
+         </form>
+       </div>
+      <div class="col-sm-4">
+      </div>
+     </div>
+   </div>
+  <script>
+   $('#login').click(function(){
+     var uid=$('#UserId').val();
+ 		var pwd=$('#Password').val();
+ 		var type = $('#User').val();
+ 		if(uid=="amitoj"){
+ 			alert("Can't Hack What You Can't See :P !!");
+ 		}
+ 		else if((uid=="1" || uid=="2" ||  uid=="3" || uid=="4" )&& pwd=="1234" && type=="Doctor"){
+ 			 localStorage.doctor_id=uid;
+ 			 window.location="http://localhost:8080/MedicalEHR/Doctor_main.html";	
+ 		}
+ 		else if((uid=="1" || uid=="2" ||  uid=="3" || uid=="4" )&& pwd=="1234" && type=="Patient"){
+ 			 localStorage.patient_id=uid;
+ 			 window.location="http://localhost:8080/MedicalEHR/Patient_Main.html";	
+ 		}
+ 		else if((uid=="1" || uid=="2" ||  uid=="3" || uid=="4" )&& pwd=="1234" && type=="Researcher"){
+			 //localStorage.re_id=uid;
+			 window.location="http://localhost:8080/MedicalEHR/Researcher_Data.html";	
+		}
+ 		else{
+ 			alert("Wrong Credentials");
+           }
+ 		 return false;
+ 	});
+   </script>
+ </body>
+</html>

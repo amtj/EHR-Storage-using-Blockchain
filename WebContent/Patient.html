@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.3.1.min.js"></script>
+
+<script type='text/javascript' src='jquery-1.9.1.js'></script>
+<script type="text/javascript" src="jquery.session.js"></script>
+
+</head>
+<body>
+<script type='text/javascript'>
+$(window).load(function() {
+ 
+ // To Store
+ $(function() {
+ $.session.set("myVar", "Hello World!");
+ });
+ 
+// To Read
+ $(function() {
+ alert($.session.get("myVar"));
+ });
+ 
+});
+</script>
+<a href="GetRecordsByPId.html"> Get Patients By PId </a>	
+</body>
+</html>

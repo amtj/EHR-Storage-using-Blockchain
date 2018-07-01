@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Bootstrap Example</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+ </head> 	
+ <body>
+   <div class="container-fluid">
+     <div style="height:100px;background-color:black">
+       <h2 style="text-align:center;color:yellow"><b>Medical<span style="color:GREEN">EHR</span></b></h2>
+       <h3 style="text-align:right"><a href="#" onclick="signout()">SignOut</a>></h3>
+     </div>
+     <div style="text-align:center">
+       <h3 style="color:BLUE"><b>Medical Record</b></h3>
+     </div>
+     <div class="row">
+       <div class="col-sm-4">
+       </div>
+       <div class="col-sm-4"style="border-style: solid;border-width: 4px;border-color:#ddd;background-color:#eee">
+         <form class="form-horizontal" id="Medicalform">
+           <div class="form-group">
+             <label class="control-label col-sm-3" for="PId">Patient Id:</label>
+             <div class="col-sm-9">
+               <input type="text" class="form-control" id="PId" placeholder="Enter PatientID here" name="UserId" value="">
+             </div>
+           </div>
+           <div class="form-group">
+             <label class="control-label col-sm-3" >Description:</label>
+             <div class="col-sm-9">
+               <input type="text" class="form-control" id="desc" placeholder="Enter Desciption " value="">
+             </div>
+           </div>
+           <div class="form-group">
+             <label class="control-label col-sm-3" >Prescription:</label>
+             <div class="col-sm-9">
+               <input type="text" class="form-control" id="pres" placeholder="Enter Prescription "  value="">
+             </div>
+           </div>
+           <div class="form-group">
+             <label class="control-label col-sm-3" >Location:</label>
+             <div class="col-sm-9">
+               <input type="text" class="form-control" id="loc" placeholder="Enter Location"  value="">
+             </div>
+           </div>
+           <div class="form-group">
+             <div class="col-sm-offset-4 col-sm-10">
+               <button type="submit"  class="btn btn-primary" id="login">Submit</button>
+             </div>
+           </div>
+         </form>
+       </div>
+      <div class="col-sm-4">
+      </div>
+     </div>
+   </div>
+  <script>
+   $('#login').click(function(){
+     	var uid=$('#PId').val()+"";
+ 		var prescription =$('#pres').val() +"";
+ 		var description = $('#desc').val() +"";
+ 		var class1= "org.acme.biznet.UpdateRecord";
+ 		var record_id=parseInt(1000*Math.random()) +"";
+ 		var version = 0;
+ 		var authorized = [""];
+ 		var date = new Date();
+ 		var location = $('#loc').val() +"";
+ 		
+ 		var yr = date.getFullYear();
+ 		var mo = date.getMonth() + 1;
+ 		mo = mo < 10 ? '0' + mo : mo;
+ 		var day = date.getDate();
+ 		day = day < 10 ? '0' + day : day;
+ 			
+ 		var hours = date.getHours();
+ 		var hr = hours < 10 ? '0' + hours : hours;
+
+ 		var minutes = date.getMinutes();
+ 		var min = (minutes < 10) ? '0' + minutes : minutes;
+
+ 		var seconds = date.getSeconds();
+ 		var sec = (seconds < 10) ? '0' + seconds : seconds;
+
+ 		var newDateString = yr + '-' + mo  + '-' + day;
+ 		var newTimeString = hr + ':' + min + ':' + sec;
+
+ 		var encounter_time = newDateString + 'T' + newTimeString + '.000Z';
+ 		//alert(encounter_time);
+ 		var myObj = {     "$class" : class1, 
+ 						  "record_id" : record_id,
+ 						  "PatientId": uid,
+ 						  "DoctorId": localStorage.doctor_id + "",
+ 						  "version": 0,
+ 						  "authorized": authorized,
+ 						  "description":description ,
+ 						  "prescription": prescription ,
+ 						  "encounter_time": encounter_time, 
+ 						  "location" : location
+ 						  };
+ 		var myJson = JSON.stringify(myObj);
+ 		//alert(myJson);
+ 		$.ajax({
+ 		    type : 'POST',
+ 		    url: 'http://localhost:3000/api/UpdateRecord',
+ 		    data : myJson,
+ 		    contentType: 'application/json',
+ 		    async: false,
+ 		    
+ 		    success: function (response){
+ 		    	if(response!=null){
+					alert("Record Create with record_id: "+ record_id); 
+					window.location="http://localhost:8080/MedicalEHR/CreateMedicalRecord.html";
+ 		    	}
+ 		    	else{
+ 		    		alert("Ask the patient first to give you the write permission"); 		    		
+ 		    	}
+ 		    },
+ 		    error: function (request, status, error) {
+ 		    	alert("Ask the patient first to give you the write permission");
+ 		    }
+ 		});
+ 		//alert(excelDateString);
+ 		 return false;
+ 	});
+   
+   function signout(){
+		localStorage.clear();
+		window.location="http://localhost:8080/MedicalEHR/loginA.html";
+   	return false;
+	}
+   </script>
+ </body>
+</html>

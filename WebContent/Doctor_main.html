@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+<div style="height:100px;background-color:black">
+       <h2 style="text-align:center;color:yellow"><b>Medical<span style="color:GREEN">EHR</span></b></h2>
+       <h3 style="text-align:right"><a href="#" onclick="signout()">SignOut</a>></h3>
+</div>
+<br><br><br><br><br><br>
+<center><h3><a href="http://localhost:8080/MedicalEHR/GetRecordsByPId.html">Get Single Patient's Records</a></h3></center><br><br>
+<center><h3><a href="http://localhost:8080/MedicalEHR/GetAllPatients.html">Get All Patient's Records</a></h3></center><br><br>
+<center><h3><a href="http://localhost:8080/MedicalEHR/CreateMedicalRecord.html">Create a new Medical Record</a></h3></center><br><br>
+<center><h3><a href="http://localhost:8080/MedicalEHR/Refer_a_Doctor.html">Refer a Medical Record</a></h3></center>
+<script type="text/javascript">
+function signout(){
+	localStorage.clear();
+	window.location="http://localhost:8080/MedicalEHR/loginA.html";
+	return false;
+}
+</script>
+</body>
+</html>
