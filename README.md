@@ -5,3 +5,5 @@
 - A doctor can provide read access of a patient’s specific data to any other doctor in case of referrals.
 - Researchers can also request for redacted version of a specific data.
 - Technologies used: Hyperledger Composer, Hyperledger Fabric, Couch Db, JavaScript. 
+
+Click [here](https://github.com/amtj/EHR-Storage-using-Blockchain/blob/master/Detailed%20report.pdf) for detailed report.
